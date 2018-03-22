@@ -1,0 +1,10 @@
+﻿  test.cpp
+  main.cpp
+d:\vs2015project\windowscpptest\windowscpptest\main.cpp(723): warning C4018: '<=': signed/unsigned mismatch
+  Generating Code...
+  WindowsCppTest.vcxproj -> D:\VS2015Project\WindowsCppTest\Debug\WindowsCppTestd.exe
+  WindowsCppTest.vcxproj -> D:\VS2015Project\WindowsCppTest\Debug\WindowsCppTestd.pdb (Partial PDB)
+  Microsoft Windows [版本 6.1.7601]
+  版权所有 (c) 2009 Microsoft Corporation。保留所有权利。
+  
+  D:\VS2015Project\WindowsCppTest\WindowsCppTest>
