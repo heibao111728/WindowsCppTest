@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowsCppTest", "WindowsCppTest\WindowsCppTest.vcxproj", "{9D41023F-93EA-4223-AB08-982339706416}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "myMathLib", "myMathLib\myMathLib.vcxproj", "{6D46EF73-326B-4CFD-BB40-2288011D7C25}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "myMathDll", "myMathDll\myMathDll.vcxproj", "{66220938-BCA4-4A5A-B20E-B16D657FED84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +25,22 @@ Global
 		{9D41023F-93EA-4223-AB08-982339706416}.Release|x64.Build.0 = Release|x64
 		{9D41023F-93EA-4223-AB08-982339706416}.Release|x86.ActiveCfg = Release|Win32
 		{9D41023F-93EA-4223-AB08-982339706416}.Release|x86.Build.0 = Release|Win32
+		{6D46EF73-326B-4CFD-BB40-2288011D7C25}.Debug|x64.ActiveCfg = Debug|x64
+		{6D46EF73-326B-4CFD-BB40-2288011D7C25}.Debug|x64.Build.0 = Debug|x64
+		{6D46EF73-326B-4CFD-BB40-2288011D7C25}.Debug|x86.ActiveCfg = Debug|Win32
+		{6D46EF73-326B-4CFD-BB40-2288011D7C25}.Debug|x86.Build.0 = Debug|Win32
+		{6D46EF73-326B-4CFD-BB40-2288011D7C25}.Release|x64.ActiveCfg = Release|x64
+		{6D46EF73-326B-4CFD-BB40-2288011D7C25}.Release|x64.Build.0 = Release|x64
+		{6D46EF73-326B-4CFD-BB40-2288011D7C25}.Release|x86.ActiveCfg = Release|Win32
+		{6D46EF73-326B-4CFD-BB40-2288011D7C25}.Release|x86.Build.0 = Release|Win32
+		{66220938-BCA4-4A5A-B20E-B16D657FED84}.Debug|x64.ActiveCfg = Debug|x64
+		{66220938-BCA4-4A5A-B20E-B16D657FED84}.Debug|x64.Build.0 = Debug|x64
+		{66220938-BCA4-4A5A-B20E-B16D657FED84}.Debug|x86.ActiveCfg = Debug|Win32
+		{66220938-BCA4-4A5A-B20E-B16D657FED84}.Debug|x86.Build.0 = Debug|Win32
+		{66220938-BCA4-4A5A-B20E-B16D657FED84}.Release|x64.ActiveCfg = Release|x64
+		{66220938-BCA4-4A5A-B20E-B16D657FED84}.Release|x64.Build.0 = Release|x64
+		{66220938-BCA4-4A5A-B20E-B16D657FED84}.Release|x86.ActiveCfg = Release|Win32
+		{66220938-BCA4-4A5A-B20E-B16D657FED84}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,8 @@
 ﻿  main.cpp
-main.cpp(373): warning C4474: 'printf' : too many arguments passed for format string
-  main.cpp(373): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
   Generating code
-  1 of 146 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  2 of 6 functions (33.3%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   WindowsCppTest.vcxproj -> D:\VS2015Project\WindowsCppTest\Release\WindowsCppTest.exe
   WindowsCppTest.vcxproj -> D:\VS2015Project\WindowsCppTest\Release\WindowsCppTest.pdb (Full PDB)

@@ -711,9 +711,14 @@ int main()
 }
 #endif
 
-#if 1
+#if 0
+/** 
+*   将输出显示在output输出框中
+*/
 #include <iostream>
 #include <stdio.h>
+#include <Windows.h>
+//#include <afx.h>
 
 using namespace std;
 
@@ -732,13 +737,142 @@ int main()
 	int a[] = { 1,2,3,4,5 };
 	int sum = 0;
 
-	sum = mysum(a, 0);
+	sum = mysum(a, 5);
 	printf("sum = %d\n", sum);
 
+	//TRACE("***********ITMS_CCTV_StopPreview 前 前*************\r\n");
 
+	OutputDebugString("***********yangdong***********\n");
+	OutputDebugString("***********yangdong***********\n");
+	OutputDebugString("***********yangdong***********\n");
+	OutputDebugString("***********yangdong***********\n");
+	OutputDebugString("***********yangdong***********\n");
+	OutputDebugString("***********yangdong***********\n");
+	OutputDebugString("***********yangdong***********\n");
 
 	system("pause");
 	return 0;
+}
+
+#endif
+
+#if 0
+
+#include <iostream>
+#include <stdio.h>
+#include <WinSock2.h>
+//#include "myMathLib\myMath.h"
+#include "myMathDll\myMath.h"
+
+using namespace std;
+
+
+int main(int argc, char* argv[])
+{
+    int a = 200;
+    int b = 3;
+
+    int sum = 0;
+
+    sum = add(a, b);
+
+    printf("sum = %d\n", sum);
+
+
+    system("pause");
+    return 0;
+}
+
+#endif
+
+#if 0
+#include <stdio.h>
+#include <string.h>
+
+//例1
+struct S
+{
+    int a;
+    char b;
+};
+
+//例2
+struct S2
+{
+    char x1;
+    short x2;
+    float x3;
+    char x4;
+};
+
+//例3
+struct S3
+{
+    char a[10];
+    int b;
+};
+
+//示例2
+class B
+{
+public:
+    B() { printf("B()\n"); }
+    virtual ~B() { printf("~B()\n"); }
+private:
+    int m_b;
+};
+
+class D : public B
+{
+public:
+    D() { printf("D()\n"); }
+    ~D() { printf("~D()\n"); }
+private:
+    int m_d;
+};
+
+int main()
+{
+    B* pB = new D();
+    delete pB;
+    
+    return 0;
+}
+
+#endif
+
+#if 1
+/**
+*   确认类中函数后面的const的作用，
+*   结果：
+*       类成员函数后面的const的作用是限制该成员函数不能修改类的成员变量，否则编译出错
+*/
+
+#include <stdio.h>
+class A
+{
+public:
+    A() {}
+    virtual ~A() {}
+
+public:
+    int func1() const;
+
+private:
+    int m_a;
+};
+
+int A::func1() const
+{
+    printf("in func1()\n");
+    return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    A a;
+    a.func1();
+    return 0;
 }
 
 #endif

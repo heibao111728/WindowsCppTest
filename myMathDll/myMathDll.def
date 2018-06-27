@@ -1,0 +1,8 @@
+/**
+*	LIBRARY myMathDll 
+*		EXPORTS
+*		add @ 1
+*/
+LIBRARY myMathDll
+ EXPORTS
+ add @ 1
