@@ -168,6 +168,7 @@ VOID WINAPI SvcMain(DWORD dwArgc, LPTSTR *lpszArgv)
 
     gSvcStatus.dwServiceType = SERVICE_WIN32_OWN_PROCESS;
     gSvcStatus.dwServiceSpecificExitCode = 0;
+    gSvcStatus.dwControlsAccepted = SERVICE_ACCEPT_PAUSE_CONTINUE;
 
 
     WriteToLog("in SvrMain(), start Service success!");
@@ -246,6 +247,11 @@ VOID SvcInit(DWORD dwArgc, LPTSTR *lpszArgv)
 // Return value:
 //   None
 //
+// NOTE:
+//      SCM中对服务进行的可控操作是由SERVICE_STATUS.dwControlsAccepted决定的，所以当服务程序状态发生变化后需要下
+//      需要及时向SCM汇报服务当前可接受的操作
+//
+//
 VOID ReportSvcStatus(DWORD dwCurrentState,
     DWORD dwWin32ExitCode,
     DWORD dwWaitHint)
@@ -259,13 +265,23 @@ VOID ReportSvcStatus(DWORD dwCurrentState,
     gSvcStatus.dwWaitHint = dwWaitHint;
 
     if (dwCurrentState == SERVICE_START_PENDING)
+    { 
         gSvcStatus.dwControlsAccepted = 0;
-    else gSvcStatus.dwControlsAccepted = SERVICE_ACCEPT_STOP;
+    }
+    else
+    {
+        gSvcStatus.dwControlsAccepted = SERVICE_ACCEPT_STOP;
+    }
 
     if ((dwCurrentState == SERVICE_RUNNING) ||
         (dwCurrentState == SERVICE_STOPPED))
+    {
         gSvcStatus.dwCheckPoint = 0;
-    else gSvcStatus.dwCheckPoint = dwCheckPoint++;
+    }
+    else
+    {
+        gSvcStatus.dwCheckPoint = dwCheckPoint++;
+    }
 
     // Report the status of the service to the SCM.
     SetServiceStatus(gSvcStatusHandle, &gSvcStatus);
@@ -297,7 +313,10 @@ VOID WINAPI SvcCtrlHandler(DWORD dwCtrl)
         ReportSvcStatus(gSvcStatus.dwCurrentState, NO_ERROR, 0);
 
         return;
-
+    case SERVICE_CONTROL_PAUSE:
+        break;
+    case SERVICE_CONTROL_CONTINUE:
+        break;
     case SERVICE_CONTROL_INTERROGATE:
         break;
 
@@ -319,7 +338,7 @@ VOID WINAPI SvcCtrlHandler(DWORD dwCtrl)
 //
 // Remarks:
 //   The service must have an entry in the Application event log.
-//
+
 VOID SvcReportEvent(LPTSTR szFunction)
 {
     HANDLE hEventSource;
