@@ -7,10 +7,20 @@
 #include <process.h>
 #include <stdio.h>
 
+const DWORD MS_VC_EXCEPTION = 0x406D1388;
+
+typedef struct tagTHREADNAME_INFO
+{
+    DWORD dwType; // Must be 0x1000.  
+    LPCSTR szName; // Pointer to name (in user addr space).  
+    DWORD dwThreadID; // Thread ID (-1=caller thread).  
+    DWORD dwFlags; // Reserved for future use, must be zero.  
+} THREADNAME_INFO;
+
 class CMyWinTthread
 {
 public:
-    CMyWinTthread();
+    CMyWinTthread(const char* threadName = "myThread");
     ~CMyWinTthread();
 
     void start();
@@ -30,10 +40,13 @@ public:
     //void threadFunc3();
 
     void setValue(int i);
+    void SetThreadName(const char* threadName);
 
 private:
     int m_value;
     bool m_bRuning;
+    THREADNAME_INFO m_threadInfo;   //保存线程名的结构体
+    DWORD m_threadId;               //线程ID
 
     HANDLE m_threadHandle;
 
