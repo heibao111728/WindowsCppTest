@@ -15,7 +15,11 @@ int main()
 
     testThread1.start();
     testThread2.start();
-    //testThread.SetThreadName("haha thread");
+
+    Sleep(1 * 1000);
+    testThread1.SetThreadName("thread1");
+    testThread2.SetThreadName("thread2");
+
     testThread1.join();
     testThread2.join();
 

@@ -40,6 +40,7 @@ public:
     /**
     *   作用：
     *       设置线程的名称，调试时使用；日常代码中使用成员变量 'm_threadName' 即可。
+    *       需要在线程启动后执行，即实行start()函数后1秒后，开始执行该函数才会生效。
     */
     void SetThreadName(const char* threadName);
 
