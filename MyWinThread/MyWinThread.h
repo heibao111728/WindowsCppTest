@@ -17,6 +17,8 @@ typedef struct tagTHREADNAME_INFO
     DWORD dwFlags; // Reserved for future use, must be zero.  
 } THREADNAME_INFO;
 
+
+
 class CMyWinTthread
 {
 public:
@@ -45,6 +47,7 @@ public:
 private:
     int m_value;
     bool m_bRuning;
+    char m_threadName[40];
     THREADNAME_INFO m_threadInfo;   //保存线程名的结构体
     DWORD m_threadId;               //线程ID
 

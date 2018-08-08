@@ -1,9 +1,20 @@
 #include "MyWinThread.h"
 
+int myPrintfVal(int a)
+{
+    int its_a = a;
+    Sleep(its_a * 1000);
+    return its_a;
+}
+
 CMyWinTthread::CMyWinTthread(const char* threadName )
 {
     m_value = 0;
     m_bRuning = true;
+    if(NULL != threadName)
+    { 
+        sprintf_s(m_threadName, "%s", threadName);
+    }
 }
 
 CMyWinTthread::~CMyWinTthread()
@@ -52,10 +63,9 @@ void CMyWinTthread::startThread()
 void CMyWinTthread::threadFunc()
 {
     m_threadId = GetCurrentThreadId();
-    SetThreadName("haha thread");
     while (m_bRuning)
     {
-        printf("in thread1   m_value = %d\n", m_value++);
+        printf("in thread:%s   m_value = %d\n",m_threadName, myPrintfVal(m_value));
         Sleep(1 * 1000);
 
         if (m_value > 9)
