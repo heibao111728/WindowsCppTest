@@ -841,7 +841,7 @@ int main()
 
 #endif
 
-#if 1
+#if 0
 /**
 *   确认类中函数后面的const的作用，
 *   结果：
@@ -868,11 +868,65 @@ int A::func1() const
     return 0;
 }
 
-int main(int argc, char* argv[])
+typedef struct _MyStruct
 {
+    int a;
+    char pData[0];
+} MyStruct;
+
+int main(int argc, char* argv[], char *envp[])
+{
+
+    printf("sizeof(MyStruct):%d\n",sizeof(MyStruct));
+
     A a;
     a.func1();
+
+    int i = 0;
+    while (NULL != envp[i])
+    {
+        printf("envp[%d]= %s\n", i, envp[i]);
+        i++;
+    }
+
     return 0;
+}
+
+#endif
+
+#if 1
+#include <stdio.h>
+#include <iostream>
+
+class B 
+{
+public:
+    virtual int fun1() = 0;
+};
+
+//int B::fun1()
+//{
+//    return 0;
+//}
+
+class S : public B
+{
+public:
+    virtual int fun1();
+};
+
+int S::fun1()
+{
+    int a = 1;
+    int b = 2;
+    return a + b;
+}
+
+int main()
+{
+    S s;
+	system("pause");
+	return 0;
 }
 
 #endif

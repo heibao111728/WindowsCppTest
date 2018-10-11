@@ -20,6 +20,10 @@ int main()
     testThread1.SetThreadName("thread1");
     testThread2.SetThreadName("thread2");
 
+    Sleep(5 * 1000);
+    testThread1.stop();
+    testThread2.stop();
+
     testThread1.join();
     testThread2.join();
 
