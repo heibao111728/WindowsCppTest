@@ -83,15 +83,15 @@ int main(int argc, char* argv[])
     read_buffer_left_size = MAX_BUFFER_SIZE;
 
     do {
-        return_value = find_next_hx_str(stream_data_buf + 4 + next_ps_packet_offset,
-            MAX_BUFFER_SIZE - 4 - next_ps_packet_offset,
+        return_value = find_next_hx_str(stream_data_buf  + next_ps_packet_offset,
+            MAX_BUFFER_SIZE - next_ps_packet_offset,
             ps_packet_start_code, 4, &ps_packet_length);
         
         if (0 == return_value)
         {
             //查找成功
             processed_size += deal_ps_packet(stream_data_buf + next_ps_packet_offset, ps_packet_length);
-            next_ps_packet_offset += (ps_packet_length + 4) ;
+            next_ps_packet_offset += ps_packet_length;
         }
         else
         {
@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
             if (0 == processed_size)
             {
                 //第一种情况, 全部缓存中的数据没有组成一个完整的PS包
-                processed_size += deal_ps_packet(stream_data_buf + next_ps_packet_offset, read_buffer_left_size);
+                processed_size += deal_ps_packet(stream_data_buf, MAX_BUFFER_SIZE);
             }
             else
             {
@@ -137,19 +137,21 @@ int main(int argc, char* argv[])
 
                 //第一步：将缓存中剩余数据移动到缓存最前端；
                 memset(tmp_data_buf, 0x00, MAX_BUFFER_SIZE);
-                memcpy(tmp_data_buf, stream_data_buf + processed_size, MAX_BUFFER_SIZE - processed_size);
+                memcpy(tmp_data_buf, stream_data_buf + processed_size , MAX_BUFFER_SIZE - processed_size);
 
                 memset(stream_data_buf, 0x00, MAX_BUFFER_SIZE);
                 memcpy(stream_data_buf, tmp_data_buf, MAX_BUFFER_SIZE - processed_size);
 
-                read_buffer_left_size -= processed_size;
+                read_buffer_left_size = processed_size;
+
+                processed_size = 0;
 
                 //第二步：读取文件数据将缓存区填满。
-                read_size = ::fread_s(stream_data_buf, MAX_BUFFER_SIZE, 1, MAX_BUFFER_SIZE, pf_ps_file);
-                if (MAX_BUFFER_SIZE > read_size)
+                read_size = ::fread_s(stream_data_buf + (MAX_BUFFER_SIZE - read_buffer_left_size), read_buffer_left_size, 1, read_buffer_left_size, pf_ps_file);
+                if (read_buffer_left_size > read_size)
                 {
                     //已读到文件尾, 处理缓存中剩余的数据。
-                    processed_size += deal_ps_packet(stream_data_buf + next_ps_packet_offset, read_buffer_left_size);
+                    processed_size += deal_ps_packet(stream_data_buf + next_ps_packet_offset, read_size);
                     //is_end_of_file = true;
                     break;
                 }

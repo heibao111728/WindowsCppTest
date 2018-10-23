@@ -31,7 +31,7 @@ int find_next_hx_str(unsigned char* source, int source_length, unsigned char* se
         return -1;
     }
 
-    unsigned char* pHeader = source;
+    unsigned char* pHeader = source + seed_length;
 
     int total_length = source_length;
     int processed_length = 0;
@@ -44,13 +44,13 @@ int find_next_hx_str(unsigned char* source, int source_length, unsigned char* se
             if (seed_length - 1 == i)
             {
                 //find ok
-                *offset = processed_length;
+                *offset = seed_length + processed_length;
                 return 0;
             }
         }
 
         processed_length++;
-        pHeader = source + processed_length;
+        pHeader = source + seed_length + processed_length;
     }
 
     return -1;
@@ -171,14 +171,14 @@ int deal_ps_packet(unsigned char * packet, int length)
             pes_video_h264_packet_stuffed_size = pes_video_h264_packet_header->pes_packet_header_stuff_size;
 
             // +9 的原因是pes_video_h264_packet_stuffed_size之前还有9个字节的头部数据
-            // -3 的原因是在pes_video_h264_packet包中packet_size字节之后的第三个字节说明了头部剩余的填充字节数
+            // -5 的原因是在pes_video_h264_packet包中packet_size字节之后的第三个字节说明了头部剩余的填充字节数
             //writeLog("E://new_mediaplay.h264", 
             //    next_pes_packet + 9 +pes_video_h264_packet_stuffed_size,
             //    pes_video_h264_packet_size - pes_video_h264_packet_stuffed_size - 3);
 
             //查找下一个包含视频数据的pes包（stream_id为'e0'的pes包）。
-            find_h264_return_value = find_next_hx_str(next_pes_packet + 4,
-                packet_total_length - packet_processed_length - 4 , 
+            find_h264_return_value = find_next_hx_str(next_pes_packet,
+                packet_total_length - packet_processed_length , 
                 pes_packet_start_code,
                 4,
                 &next_h264_pes_offset);
@@ -189,9 +189,9 @@ int deal_ps_packet(unsigned char * packet, int length)
                 //查找成功
                 writeLog(out_put_filename,
                     next_pes_packet + 9 + pes_video_h264_packet_stuffed_size,
-                    next_h264_pes_offset - 5 - pes_video_h264_packet_stuffed_size);
+                    next_h264_pes_offset - 9 - pes_video_h264_packet_stuffed_size);
 
-                packet_processed_length += 4 + next_h264_pes_offset;
+                packet_processed_length += next_h264_pes_offset;
                 next_pes_packet = packet + packet_processed_length;
             } 
             else
@@ -199,7 +199,7 @@ int deal_ps_packet(unsigned char * packet, int length)
                 //该PS包中剩余最后一个包含h264的PES数据包，将剩余的数据也写入文件中
                 writeLog(out_put_filename,
                     next_pes_packet + 9 + pes_video_h264_packet_stuffed_size,
-                    packet_total_length - packet_processed_length - 5 - pes_video_h264_packet_stuffed_size);
+                    packet_total_length - packet_processed_length - 9 - pes_video_h264_packet_stuffed_size);
                 packet_processed_length = packet_total_length;
                 break;
             }
