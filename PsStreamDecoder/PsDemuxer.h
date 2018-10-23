@@ -1,6 +1,8 @@
 #ifndef __PSDEMUXER_H__
 #define __PSDEMUXER_H__
 
+#include <fstream>
+
 #define MAX_BUFFER_SIZE (8 * 1024 * 1024)
 #define MAX_FILENAME_LENGTH (60)
 
@@ -105,10 +107,15 @@ public:
 
     int do_prase();
 
+    bool open_src_ps_file();
+    bool close_src_ps_file();
+
 private:
     char src_ps_filename[MAX_FILENAME_LENGTH];
     char dst_es_video_filename[MAX_FILENAME_LENGTH];
     char dst_es_audio_filename[MAX_FILENAME_LENGTH];
+
+    FILE* m_pf_ps_file;
 };
 
 #endif // !__PSDEMUXER_H__

@@ -60,7 +60,7 @@ int CPsDemuxer::deal_ps_packet(unsigned char * packet, int length)
     int next_ps_header_return_value = 0;
     int find_ps_header_return_value = -1;
 
-    char* out_put_filename = "E://tmp1.h264";
+    //char* out_put_filename = "E://tmp1.h264";
 
     unsigned char pes_packet_start_code[4];
     pes_packet_start_code[0] = 0x00;
@@ -169,7 +169,7 @@ int CPsDemuxer::deal_ps_packet(unsigned char * packet, int length)
             if (0 == find_h264_return_value)
             {
                 //查找成功
-                writeLog(out_put_filename,
+                writeLog(dst_es_video_filename,
                     next_pes_packet + 9 + pes_video_h264_packet_stuffed_size,
                     next_h264_pes_offset - 9 - pes_video_h264_packet_stuffed_size);
 
@@ -179,7 +179,7 @@ int CPsDemuxer::deal_ps_packet(unsigned char * packet, int length)
             else
             {
                 //该PS包中剩余最后一个包含h264的PES数据包，将剩余的数据也写入文件中
-                writeLog(out_put_filename,
+                writeLog(dst_es_video_filename,
                     next_pes_packet + 9 + pes_video_h264_packet_stuffed_size,
                     packet_total_length - packet_processed_length - 9 - pes_video_h264_packet_stuffed_size);
                 packet_processed_length = packet_total_length;
@@ -238,10 +238,6 @@ void CPsDemuxer::writeLog(char* file_name, void* pLog, int nLen)
 
 int CPsDemuxer::do_prase()
 {
-    char* ps_filename = "E://tmp1.ps";
-
-    FILE* pf_ps_file;
-
     int buffer_size = MAX_BUFFER_SIZE;
     int processed_size = 0;             //已经解析完的缓存数据大小
     int read_buffer_left_size = 0;          //缓存区剩余大小
@@ -254,19 +250,6 @@ int CPsDemuxer::do_prase()
 
     tmp_data_buf = (unsigned char*)malloc(MAX_BUFFER_SIZE);
     memset(tmp_data_buf, 0x00, MAX_BUFFER_SIZE);
-
-    errno_t err;
-
-    //open ps file
-    err = ::fopen_s(&pf_ps_file, ps_filename, "rb");
-    if (err == 0)
-    {
-        printf("The file '%s' was opened\n", ps_filename);
-    }
-    else
-    {
-        printf("The file '%s' was not opened\n", ps_filename);
-    }
 
     int read_size = 0;
 
@@ -307,7 +290,7 @@ int CPsDemuxer::do_prase()
             //第三种情况，缓存中没有数据，解决办法——读入文件数据到缓存。
             if (MAX_BUFFER_SIZE == read_buffer_left_size)
             {
-                read_size = ::fread_s(stream_data_buf, MAX_BUFFER_SIZE, 1, MAX_BUFFER_SIZE, pf_ps_file);
+                read_size = ::fread_s(stream_data_buf, MAX_BUFFER_SIZE, 1, MAX_BUFFER_SIZE, m_pf_ps_file);
                 read_buffer_left_size = MAX_BUFFER_SIZE - read_size;
 
                 if (MAX_BUFFER_SIZE > read_size)
@@ -347,7 +330,7 @@ int CPsDemuxer::do_prase()
                 processed_size = 0;
 
                 //第二步：读取文件数据将缓存区填满。
-                read_size = ::fread_s(stream_data_buf + (MAX_BUFFER_SIZE - read_buffer_left_size), read_buffer_left_size, 1, read_buffer_left_size, pf_ps_file);
+                read_size = ::fread_s(stream_data_buf + (MAX_BUFFER_SIZE - read_buffer_left_size), read_buffer_left_size, 1, read_buffer_left_size, m_pf_ps_file);
                 if (read_buffer_left_size > read_size)
                 {
                     //已读到文件尾, 处理缓存中剩余的数据。
@@ -370,19 +353,6 @@ int CPsDemuxer::do_prase()
         free(tmp_data_buf);
     }
 
-    // close ps file 
-    if (pf_ps_file)
-    {
-        err = fclose(pf_ps_file);
-        if (err == 0)
-        {
-            printf("The file '%s' was closed\n", ps_filename);
-        }
-        else
-        {
-            printf("The file '%s' was not closed\n", ps_filename);
-        }
-    }
     return 0;
 }
 
@@ -411,4 +381,38 @@ void CPsDemuxer::setup_dst_es_audio_file(char* filename)
     {
         sprintf_s(dst_es_audio_filename, MAX_FILENAME_LENGTH, "%s", filename);
     }
+}
+
+bool CPsDemuxer::open_src_ps_file()
+{
+    //open ps file
+    errno_t err;
+    err = ::fopen_s(&m_pf_ps_file, src_ps_filename, "rb");
+    if (err == 0)
+    {
+        printf("The file '%s' was opened\n", src_ps_filename);
+    }
+    else
+    {
+        printf("The file '%s' was not opened\n", src_ps_filename);
+    }
+    return (0 == err);
+}
+bool CPsDemuxer::close_src_ps_file()
+{
+    // close ps file 
+    errno_t err = 0;
+    if (m_pf_ps_file)
+    {
+        err = fclose(m_pf_ps_file);
+        if (err == 0)
+        {
+            printf("The file '%s' was closed\n", src_ps_filename);
+        }
+        else
+        {
+            printf("The file '%s' was not closed\n", src_ps_filename);
+        }
+    }
+    return (0 == err);
 }
