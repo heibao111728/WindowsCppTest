@@ -3,7 +3,7 @@
 
 #include <fstream>
 
-#define MAX_BUFFER_SIZE (8 * 1024 * 1024)
+#define MAX_BUFFER_SIZE (20 * 1024 * 1024)
 #define MAX_FILENAME_LENGTH (60)
 
 // PES 包stream_id 之后的两个字节中存放该PES包的长度
@@ -87,19 +87,19 @@ public:
     *       source_length：  源字符序列长度
     *       seed：           被查找的字符序列
     *       seed_length：    被查找的字符序列长度
-    *       offset：         如果成功，该值表示被查找的字符序列在源字符序列中的位移。
+    *       offset：         如果成功，该值表示。
     *   返回值：
-    *       0：成功，offset值可用
-    *       -1：失败，offset值为垃圾值，不可用
+    *       0：失败
+    *       >0：成功, 被查找的字符序列在源字符序列中的位移
     */
-    int find_next_hx_str(unsigned char* source, int source_length, unsigned char* seed, int seed_length, int* offset);
+    int find_next_hx_str(unsigned char* source, int source_length, unsigned char* seed, int seed_length);
 
     /**
     *   return: 从输入缓存中已经正确处理的长度
     */
     int deal_ps_packet(unsigned char * packet, int length);
 
-    void writeLog(char* file_name, void* pLog, int nLen);
+    void write_media_data_to_file(char* file_name, void* pLog, int nLen);
 
     void setup_src_ps_file(char* filename);
     void setup_dst_es_video_file(char* filename);
