@@ -1,7 +1,7 @@
 #include "PsDemuxer.h"
 #include <fstream>
 
-int CPsDemuxer::find_next_hx_str(unsigned char* source, int source_length, unsigned char* seed, int seed_length)
+int CDemuxer2::find_next_hx_str(unsigned char* source, int source_length, unsigned char* seed, int seed_length)
 {
     if (source && seed)
     {
@@ -37,7 +37,7 @@ int CPsDemuxer::find_next_hx_str(unsigned char* source, int source_length, unsig
 }
 
 
-int CPsDemuxer::deal_ps_packet(unsigned char * packet, int length)
+int CDemuxer2::deal_ps_packet(unsigned char * packet, int length)
 {
     int ps_packet_header_size;
     int ps_packet_header_stuffed_size;
@@ -171,7 +171,7 @@ int CPsDemuxer::deal_ps_packet(unsigned char * packet, int length)
     return packet_processed_length;
 }
 
-void CPsDemuxer::write_media_data_to_file(char* file_name, void* pLog, int nLen)
+void CDemuxer2::write_media_data_to_file(char* file_name, void* pLog, int nLen)
 {
     FILE* m_pLogFile = NULL;
     if (pLog != NULL && nLen > 0)
@@ -192,7 +192,7 @@ void CPsDemuxer::write_media_data_to_file(char* file_name, void* pLog, int nLen)
     }
 }
 
-int CPsDemuxer::do_prase()
+int CDemuxer2::do_demux()
 {
     int buffer_size = MAX_BUFFER_SIZE;
     int processed_size = 0;             //已经解析完的缓存数据大小
@@ -281,7 +281,7 @@ int CPsDemuxer::do_prase()
     return 0;
 }
 
-void CPsDemuxer::setup_src_ps_file(char* filename)
+void CDemuxer2::setup_src_ps_file(char* filename)
 {
     memset(src_ps_filename, 0x00, MAX_FILENAME_LENGTH);
     if (strlen(filename) > 0)
@@ -290,7 +290,7 @@ void CPsDemuxer::setup_src_ps_file(char* filename)
     }
 }
 
-void CPsDemuxer::setup_dst_es_video_file(char* filename)
+void CDemuxer2::setup_dst_es_video_file(char* filename)
 {
     memset(dst_es_video_filename, 0x00, MAX_FILENAME_LENGTH);
     if (strlen(filename) > 0)
@@ -299,7 +299,7 @@ void CPsDemuxer::setup_dst_es_video_file(char* filename)
     }
 }
 
-void CPsDemuxer::setup_dst_es_audio_file(char* filename)
+void CDemuxer2::setup_dst_es_audio_file(char* filename)
 {
     memset(dst_es_audio_filename, 0x00, MAX_FILENAME_LENGTH);
     if (strlen(filename) > 0)
@@ -308,7 +308,7 @@ void CPsDemuxer::setup_dst_es_audio_file(char* filename)
     }
 }
 
-bool CPsDemuxer::open_src_ps_file()
+bool CDemuxer2::open_src_ps_file()
 {
     //open ps file
     errno_t err;
@@ -323,7 +323,7 @@ bool CPsDemuxer::open_src_ps_file()
     }
     return (0 == err);
 }
-bool CPsDemuxer::close_src_ps_file()
+bool CDemuxer2::close_src_ps_file()
 {
     // close ps file 
     errno_t err = 0;

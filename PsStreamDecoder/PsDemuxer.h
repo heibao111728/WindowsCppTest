@@ -72,11 +72,11 @@ typedef struct ps_packet_header
 
 
 
-class CPsDemuxer
+class CDemuxer2
 {
 public:
-    CPsDemuxer() {}
-    ~CPsDemuxer() {}
+    CDemuxer2() {}
+    ~CDemuxer2() {}
 
     /**
     *   ¹¦ÄÜ£º
@@ -105,7 +105,7 @@ public:
     void setup_dst_es_video_file(char* filename);
     void setup_dst_es_audio_file(char* filename);
 
-    int do_prase();
+    int do_demux();
 
     bool open_src_ps_file();
     bool close_src_ps_file();
