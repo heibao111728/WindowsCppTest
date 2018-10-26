@@ -243,6 +243,7 @@ int CDemuxer2::do_demux()
             if (is_end_of_file)
             {
                 //处理最后缓存中的数据, 如果不做处理则丢失最后一个PS包数据
+                deal_ps_packet(stream_data_buf + processed_size, MAX_BUFFER_SIZE - processed_size);
                 break;
             }
 

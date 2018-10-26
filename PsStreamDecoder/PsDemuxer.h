@@ -3,7 +3,7 @@
 
 #include <fstream>
 
-#define MAX_BUFFER_SIZE (20 * 1024 * 1024)
+#define MAX_BUFFER_SIZE (8 * 1024 * 1024)
 #define MAX_FILENAME_LENGTH (60)
 
 // PES 包stream_id 之后的两个字节中存放该PES包的长度
@@ -70,7 +70,16 @@ typedef struct ps_packet_header
     unsigned char Buf2;                 // ps包中第14个字节的后3位用来说明填充数据的长度
 }ps_packet_header_t;
 
-
+/**
+*   description:
+*       demux ps stream to es stream, without ffmpeg.
+*   
+*   bug:
+*       when ps packet is bigger than MAX_BUFFER_SIZE, program will not work rightly, MAX_BUFFER_SIZE is 8*1024*1024, now
+*
+*   Strengths:
+*       
+*/
 
 class CDemuxer2
 {
@@ -87,15 +96,18 @@ public:
     *       source_length：  源字符序列长度
     *       seed：           被查找的字符序列
     *       seed_length：    被查找的字符序列长度
-    *       offset：         如果成功，该值表示。
     *   返回值：
-    *       0：失败
+    *       0 ：失败
     *       >0：成功, 被查找的字符序列在源字符序列中的位移
     */
     int find_next_hx_str(unsigned char* source, int source_length, unsigned char* seed, int seed_length);
 
     /**
-    *   return: 从输入缓存中已经正确处理的长度
+    *   description:
+    *       demux ps packet to es packet
+    *
+    *   return: 
+    *       lentgth of have been dealed, in buffer.
     */
     int deal_ps_packet(unsigned char * packet, int length);
 
