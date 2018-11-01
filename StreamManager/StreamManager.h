@@ -10,10 +10,25 @@
 
 class CStreamManager
 {
-public:
+private:
     CStreamManager();
     ~CStreamManager();
 
+public:
+    static CStreamManager* m_instance;
+
+    static CStreamManager* get_instance()
+    {
+        if (NULL != m_instance)
+        {
+            return m_instance;
+        }
+        else
+        {
+            m_instance = new CStreamManager();
+            return m_instance;
+        }
+    }
     /**
     *   description:
     *       read length of data to buffer.

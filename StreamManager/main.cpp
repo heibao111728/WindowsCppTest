@@ -25,12 +25,12 @@ int main()
     unsigned char buf_dst[8];
     unsigned char buf_dst2[8];
 
-    CStreamManager stream_manager;
-    stream_manager.write_data(buf_src, 8);
-    stream_manager.read_data(NULL, buf_dst, 6);
+    CStreamManager* pstream_manager = CStreamManager::get_instance();
+    pstream_manager->write_data(buf_src, 8);
+    pstream_manager->read_data(NULL, buf_dst, 6);
 
-    stream_manager.write_data(buf_src2, 6);
-    stream_manager.read_data(NULL, buf_dst2, 9);
+    pstream_manager->write_data(buf_src2, 6);
+    pstream_manager->read_data(NULL, buf_dst2, 8);
 
 
     return 0;
