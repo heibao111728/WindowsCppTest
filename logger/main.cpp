@@ -16,4 +16,5 @@ int main()
     int a = 3;
 
     LOG("a = %d\n", a);
+    bsm_logger::get_instance()->uninit_logger();
 }
