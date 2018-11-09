@@ -894,7 +894,7 @@ int main(int argc, char* argv[], char *envp[])
 
 #endif
 
-#if 1
+#if 0
 #include <stdio.h>
 #include <iostream>
 
@@ -929,4 +929,28 @@ int main()
 	return 0;
 }
 
+#endif
+
+#if 1
+/**
+*   function pointer
+*/
+#include <stdio.h>
+
+typedef int(*callback_add)(int a, int b);
+
+int add(int a, int b)
+{
+    printf("%d+%d=%d\n",a, b, a + b);
+    return 0;
+}
+
+int main()
+{
+    callback_add fun;
+    fun = add;
+    fun(2,3);
+
+    return 0;
+}
 #endif
