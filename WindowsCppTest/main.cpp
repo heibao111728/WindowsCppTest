@@ -841,7 +841,7 @@ int main()
 
 #endif
 
-#if 1
+#if 0
 /**
 *   确认类中函数后面的const的作用，
 *   结果：
@@ -874,5 +874,20 @@ int main(int argc, char* argv[])
     a.func1();
     return 0;
 }
+
+#endif
+
+#if 1
+
+#include "stdio.h"
+
+int main()
+{
+    printf("\n\nhuipo i love you !\n\n\n\n");
+    //system()
+    return 0;
+}
+
+
 
 #endif
