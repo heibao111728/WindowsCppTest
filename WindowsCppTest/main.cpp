@@ -55,15 +55,15 @@ int main()
 	int weight;
 	int result;
 
-	printf("³¤·½ÐÎµÄ¸ß¶ÈÎª£º%d\n", height);
-	printf("ÇëÊäÈë³¤·½ÐÎµÄ³¤¶È:\n");
+	printf("ï¿½ï¿½ï¿½ï¿½ï¿½ÎµÄ¸ß¶ï¿½Îªï¿½ï¿½%d\n", height);
+	printf("ï¿½ï¿½ï¿½ï¿½ï¿½ë³¤ï¿½ï¿½ï¿½ÎµÄ³ï¿½ï¿½ï¿½:\n");
 	scanf("%d", &mylong);
 
-	printf("ÇëÊäÈë³¤·½ÐÎµÄ¿í¶È£º\n");
+	printf("ï¿½ï¿½ï¿½ï¿½ï¿½ë³¤ï¿½ï¿½ï¿½ÎµÄ¿ï¿½È£ï¿½\n");
 	scanf("%d", &weight);
 
 	result = calculate(mylong, weight, height);
-	printf("³¤·½ÐÎµÄÌå»ýÎª£º%d\n", result);
+	printf("ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½%d\n", result);
 	getchar();
 	getchar();
 	getchar();
@@ -87,7 +87,7 @@ void exercise1()
 void exercise4()
 {
 	extern char a;
-	printf("Íâ²¿±äÁ¿ÏÔÊ¾£º%c\n", a);
+	printf("ï¿½â²¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½%c\n", a);
 }
 
 void main()
@@ -215,13 +215,13 @@ int main()
 	wstring::size_type index = msg.rfind(L"#");
 	if (wstring::npos != index)
 	{
-		//²éÕÒ³É¹¦£¬
+		//ï¿½ï¿½ï¿½Ò³É¹ï¿½ï¿½ï¿½
 		imgUrl = msg.substr(index+1);
 		info = msg.erase(index+1);
 	}
 	else
 	{
-		//²éÕÒÊ§°Ü£¬·µ»Ø
+		//ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½
 		return -1;
 	}
 
@@ -288,7 +288,7 @@ int main()
 
 #if 0
 /**
-*	²âÊÔunsign char ÓëcharµÄÇø±ð¡£
+*	ï¿½ï¿½ï¿½ï¿½unsign char ï¿½ï¿½charï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 
 #include <iostream>
@@ -328,7 +328,7 @@ int main()
 
 #if 0
 /**
-*	²âÊÔunsign char ÓëcharµÄÇø±ð¡£
+*	ï¿½ï¿½ï¿½ï¿½unsign char ï¿½ï¿½charï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 
 #include <iostream>
@@ -402,10 +402,10 @@ char* GethostIp(char* pHostIp, int nBufLen)
 	struct hostent* pH = NULL;
 	char pHostName[100] = { 0 };
 	gethostname(pHostName, 100);
-	string hostNmae = pHostName;//´Ë´¦»ñµÃ±¾»úÃû³Æ
+	string hostNmae = pHostName;//ï¿½Ë´ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pH = gethostbyname(pHostName);
 
-	char* pTmpHostIP = inet_ntoa(*((struct in_addr*)pH->h_addr_list[0]));//´Ë´¦»ñµÃ±¾»úIP
+	char* pTmpHostIP = inet_ntoa(*((struct in_addr*)pH->h_addr_list[0]));//ï¿½Ë´ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½IP
 
 	strcpy_s(pHostIp, nBufLen, pTmpHostIP);
 
@@ -452,7 +452,7 @@ int main()
 
 	/*createNewConsoleWindow();
 	printf("hello world\n");
-	printf("ÄãºÃ\n");*/
+	printf("ï¿½ï¿½ï¿½\n");*/
 
 	char tmpSDP[4096] = { 0 };
 	sprintf_s(tmpSDP, 4096,
@@ -550,7 +550,7 @@ int main()
 
 #if 0
 
-//c++Òì³£²âÊÔ³ÌÐò
+//c++ï¿½ì³£ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½
 #include <iostream>
 
 using namespace std;
@@ -644,10 +644,10 @@ int main()
 #endif
 
 #if 0
-// c++Ëæ»úÊý²âÊÔ³ÌÐò
+// c++ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½
 /**
-*	ÓÃrand()º¯Êý²úÉúµÄËæ»úÊý£¬µ±³ÌÐòÖ´ÐÐ¶à´Îºó²úÉúµÄÖµÊÇÏàÍ¬µÄ£¬Ô­ÒòÊÇÄ¬ÈÏµÄÖÖ×Ó¶¼ÊÇ1£¬ÏëÒª³ÌÐòÃ¿´ÎÖ´ÐÐ²úÉúµÄ
-*	Ëæ»úÊý²»ÏàÍ¬£¬ÐèÒªÉèÖÃ²»Í¬µÄÖÖ×Ó£¬Ò»°ãÎÒÃÇÒÔÊ±¼äÎª²Î¿¼Éú³ÉÖÖ×Ó£ºsrand((int)time(NULL))£¬Ã¿´ÎÖ´ÐÐÖÖ×Ó²»Í¬£¬Éú³É²»Í¬µÄËæ»úÊý
+*	ï¿½ï¿½rand()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¶ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ä£ï¿½Ô­ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ö´ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½
+*	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ã²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Îªï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½srand((int)time(NULL))ï¿½ï¿½Ã¿ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *
 *
 *	(a,b) (rand()%((b)-(a)+1))+(a)-1
@@ -699,9 +699,9 @@ int main()
 	short tmp3 = (short)tmp;
 	tmp2 = tmp3;
 	int i;
-	srand((int)time(NULL)); //Ã¿´ÎÖ´ÐÐÖÖ×Ó²»Í¬£¬Éú³É²»Í¬µÄËæ»úÊý
+	srand((int)time(NULL)); //Ã¿ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	for (i = 0; i<10; i++)  //Ëæ»ú²úÉú10¸öÊý¡£
+	for (i = 0; i<10; i++)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		printf("%d\n", getPort(50000,50000));
 	}
@@ -713,7 +713,7 @@ int main()
 
 #if 0
 /** 
-*   ½«Êä³öÏÔÊ¾ÔÚoutputÊä³ö¿òÖÐ
+*   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½outputï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 #include <iostream>
 #include <stdio.h>
@@ -789,14 +789,14 @@ int main(int argc, char* argv[])
 #include <stdio.h>
 #include <string.h>
 
-//Àý1
+//ï¿½ï¿½1
 struct S
 {
     int a;
     char b;
 };
 
-//Àý2
+//ï¿½ï¿½2
 struct S2
 {
     char x1;
@@ -805,14 +805,14 @@ struct S2
     char x4;
 };
 
-//Àý3
+//ï¿½ï¿½3
 struct S3
 {
     char a[10];
     int b;
 };
 
-//Ê¾Àý2
+//Ê¾ï¿½ï¿½2
 class B
 {
 public:
@@ -843,9 +843,9 @@ int main()
 
 #if 0
 /**
-*   È·ÈÏÀàÖÐº¯ÊýºóÃæµÄconstµÄ×÷ÓÃ£¬
-*   ½á¹û£º
-*       Àà³ÉÔ±º¯ÊýºóÃæµÄconstµÄ×÷ÓÃÊÇÏÞÖÆ¸Ã³ÉÔ±º¯Êý²»ÄÜÐÞ¸ÄÀàµÄ³ÉÔ±±äÁ¿£¬·ñÔò±àÒë³ö´í
+*   È·ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½constï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½
+*   ï¿½ï¿½ï¿½ï¿½ï¿½
+*       ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½constï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸Ã³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½Ä³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 
 #include <stdio.h>
@@ -945,6 +945,21 @@ int add(int a, int b)
     printf("%d+%d=%d\n",a, b, a + b);
     return 0;
 }
+
+#endif
+
+#if 1
+
+#include "stdio.h"
+
+int main()
+{
+    printf("\n\nhuipo i love you !\n\n\n\n");
+    //system()
+    return 0;
+}
+
+
 
 int main()
 {
