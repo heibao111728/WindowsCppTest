@@ -931,10 +931,15 @@ int main()
 
 #endif
 
+<<<<<<< HEAD
 #if 0
+=======
+>>>>>>> f2ea45ef36b50d399849c75660a8ad3f1def4942
 /**
 *   function pointer
 */
+#if 0
+
 #include <stdio.h>
 
 typedef int(*callback_add)(int a, int b);
@@ -1090,5 +1095,239 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+<<<<<<< HEAD
+=======
+#endif
+
+/**
+*   virtual function and overload
+*/
+# if 0
+#include <stdio.h>
+class A
+{
+public:
+
+    void func1() {}
+    virtual void func1() {}
+};
+
+int main()
+{
+    A a;
+    return 0;
+}
+#endif
+
+/**
+*   difference of delete and delete[]
+*/
+#if 0
+#include <iostream>
+
+using namespace std;
+
+class A
+{
+private:
+    int m_data;
+public:
+    A() { }
+    ~A() { cout << "delete object." << endl; }
+};
+
+int main()
+{
+    A *a = new A[10];
+    delete []a;
+    //delete a;
+
+    return 0;
+}
+#endif
+
+
+//Éî¿½±´
+
+#if 0
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+class media_packet
+{
+public:
+    media_packet()
+    {
+        m_media_data = NULL;
+        m_media_data_length = 0;
+    }
+
+    ~media_packet()
+    {
+        if (!m_media_data)
+        {
+            free(m_media_data);
+            m_media_data = NULL;
+        }
+    }
+
+    media_packet(unsigned char* data, int size)
+    {
+        m_media_data = (unsigned char*)malloc(size);
+
+        if (NULL != m_media_data && 0 < size)
+        {
+            memcpy(m_media_data, data, size);
+            m_media_data_length = size;
+        }
+        else
+        {
+            m_media_data_length = 0;
+        }
+    }
+
+    media_packet& operator = (media_packet packet)
+    {
+        if (m_media_data == packet.m_media_data)
+        {
+            return *this;
+        }
+        if (NULL != m_media_data)
+        {
+            free(m_media_data);
+            m_media_data = NULL;
+            m_media_data_length = 0;
+
+            if (!packet.m_media_data)
+            {
+                return *this;
+            }
+
+            m_media_data_length = packet.m_media_data_length;
+
+            m_media_data = (unsigned char*)malloc(m_media_data_length);
+            if (m_media_data)
+            {
+                memcpy(m_media_data, packet.m_media_data, m_media_data_length);
+            }
+        }
+        else
+        {
+            m_media_data_length = packet.m_media_data_length;
+            m_media_data = (unsigned char*)malloc(m_media_data_length);
+            if (m_media_data)
+            {
+                memcpy(m_media_data, packet.m_media_data, m_media_data_length);
+            }
+        }
+        return *this;
+    }
+
+    bool is_valid()
+    {
+        return (m_media_data && 0 < m_media_data_length);
+    }
+
+private:
+    unsigned char* m_media_data;
+    int m_media_data_length;
+
+};
+
+int main()
+{
+    media_packet packet_a;
+    media_packet packet_c;
+
+    packet_a = packet_a;
+    //packet_c = packet_a;
+
+    media_packet packet_b((unsigned char*)"abcdefghi", 10);
+    //packet_c = packet_a = packet_b;
+    //packet_a = packet_a;
+
+    packet_b = packet_a;
+    return 0;
+}
+#endif
+
+/**
+*   test string
+*/
+#if 0
+#include <stdio.h>
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+string m_sdp_info;
+
+void generate_sdp_info(char* device_id,
+    char* media_receive_ip, unsigned int media_receive_port)
+{
+    m_sdp_info =
+        ("v=0\r\n"
+            "o=[device_id] 0 0 IN IP4 [media_receive_ip]\r\n"
+            "s=Play\r\n"
+            "c=IN IP4 [media_receive_ip]\r\n"
+            "t=0 0\r\n"
+            "m=video [media_receive_port] RTP/AVP 96 98 97\r\n"
+            "a=recvonly\r\n"
+            "a=rtpmap:96 PS/90000\r\n"
+            "a=rtpmap:98 H264/90000\r\n"
+            "a=rtpmap:97 MPEG-4/90000\r\n"
+            "y=[ssrc]\r\n"
+            "f=\r\n");
+
+    char media_recv_port_c[20];
+    sprintf(media_recv_port_c, "%d", media_receive_port);
+    string media_recv_port_tmp(media_recv_port_c);
+
+    string media_recv_id("[device_id]");
+    string media_recv_ip("[media_receive_ip]");
+    string media_recv_port("[media_receive_port]");
+
+    int pos = -1;
+    while ((pos = m_sdp_info.find(media_recv_id)) != -1)
+    {
+        m_sdp_info.replace(pos, media_recv_id.length(), device_id);
+    }
+
+    while ((pos = m_sdp_info.find(media_recv_ip)) != -1)
+    {
+        m_sdp_info.replace(pos, media_recv_ip.length(), media_receive_ip);
+    }
+
+    while ((pos = m_sdp_info.find(media_recv_port)) != -1)
+    {
+        m_sdp_info.replace(pos, media_recv_port.length(), media_recv_port_tmp);
+    }
+}
+
+int main()
+{
+    generate_sdp_info("1234567890", "192.168.0.102", 50000);
+    cout << m_sdp_info << endl;
+
+    return 0;
+}
+#endif
+
+#if 1
+
+#include <stdio.h>
+
+int main()
+{
+    int a = 1;
+    while (true)
+    {
+        //a++;
+    }
+    return 0;
+}
+>>>>>>> f2ea45ef36b50d399849c75660a8ad3f1def4942
 
 #endif
