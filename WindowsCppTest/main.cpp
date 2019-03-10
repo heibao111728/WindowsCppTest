@@ -931,7 +931,7 @@ int main()
 
 #endif
 
-#if 1
+#if 0
 /**
 *   function pointer
 */
@@ -945,21 +945,6 @@ int add(int a, int b)
     return 0;
 }
 
-#endif
-
-#if 1
-
-#include "stdio.h"
-
-int main()
-{
-    printf("\n\nhuipo i love you !\n\n\n\n");
-    //system()
-    return 0;
-}
-
-
-
 int main()
 {
     callback_add fun;
@@ -968,4 +953,142 @@ int main()
 
     return 0;
 }
+#endif
+
+#if 0
+
+#include "stdio.h"
+
+class ca
+{
+public:
+    ca() 
+    {
+        printf("constructort.\n");
+    }
+
+    ca(ca &) 
+    {
+        printf("copy constructor.\n");
+    }
+
+    ~ca() 
+    {
+        printf("desconstructor.\n");
+    }
+
+    ca& operator=(const ca& ca1)
+    {
+        ca ca2;
+        printf("operator = ().\n");
+
+        return ca2;
+    }
+};
+
+void func1(ca ca1)
+{
+    ca b;
+    b = ca1;
+}
+
+int main()
+{
+    ca ca1;
+    func1(ca1);
+
+    return 0;
+}
+#endif
+
+#if 1
+
+#include "stdio.h"
+#include <string.h>
+#include <stdlib.h>
+#include "command_line_parser.h"
+
+using namespace std;
+
+//bool parse(char* schema, char* args[], int argc)
+//{
+//    char* _schema = NULL;
+//    char* _args = NULL;
+//    if (schema && args[0])
+//    {
+//        _schema = (char*)malloc(strlen(schema));
+//        sprintf(_schema, "%s", schema);
+//
+//        char* temp_schema = strtok(_schema, ",");
+//        while (temp_schema)
+//        {
+//            printf("%s ", temp_schema);
+//            if ('\0' == temp_schema[1])
+//            {
+//                printf("bool \n");
+//            }
+//            else if (temp_schema[1] == '#')
+//            {
+//                printf("int \n");
+//            }
+//            else if (temp_schema[1] == '*')
+//            {
+//                printf("string \n");
+//            }
+//
+//            temp_schema = strtok(NULL, ",");
+//        }
+//
+//        for (int i = 0; i<argc; i++)
+//        {
+//            printf("%s\n", args[i]);
+//            if (args[i][0] == '-')
+//            {
+//                //key
+//                if (args[i + 1][0] == '-')
+//                {
+//
+//                }
+//                printf("%s", args[i]);
+//            }
+//            else
+//            {
+//
+//            }
+//        }
+//
+//    }
+//
+//    free(_schema);
+//    free(_args);
+//
+//    return false;
+//}
+
+int main(int argc, char* argv[])
+{
+    if (2 > argc)
+    {
+        printf("error, please check in put param.\n");
+    }
+
+    char* schema = argv[1];
+    char* args[100] = { 0 };
+
+    int param_num = 0;
+
+    for (int i = 0; i < argc - 2; i++)
+    {
+        args[i] = argv[i + 2];
+        param_num++;
+    }
+
+    command_line_parser cmd_line_parase;
+
+    cmd_line_parase.parse(schema, args, param_num);
+    cmd_line_parase.printf_param_values();
+
+    return 0;
+}
+
 #endif
