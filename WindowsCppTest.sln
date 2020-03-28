@@ -36,6 +36,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MFCTest", "MFCTest\MFCTest.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Project", "Win32Project\Win32Project.vcxproj", "{B823D6E0-3746-42B4-AD32-5E273EEB3295}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StdThreadTest", "StdThreadTest\StdThreadTest.vcxproj", "{9B9E4777-FBC4-4F86-B193-36FA07BA3263}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -180,6 +182,14 @@ Global
 		{B823D6E0-3746-42B4-AD32-5E273EEB3295}.Release|x64.Build.0 = Release|x64
 		{B823D6E0-3746-42B4-AD32-5E273EEB3295}.Release|x86.ActiveCfg = Release|Win32
 		{B823D6E0-3746-42B4-AD32-5E273EEB3295}.Release|x86.Build.0 = Release|Win32
+		{9B9E4777-FBC4-4F86-B193-36FA07BA3263}.Debug|x64.ActiveCfg = Debug|x64
+		{9B9E4777-FBC4-4F86-B193-36FA07BA3263}.Debug|x64.Build.0 = Debug|x64
+		{9B9E4777-FBC4-4F86-B193-36FA07BA3263}.Debug|x86.ActiveCfg = Debug|Win32
+		{9B9E4777-FBC4-4F86-B193-36FA07BA3263}.Debug|x86.Build.0 = Debug|Win32
+		{9B9E4777-FBC4-4F86-B193-36FA07BA3263}.Release|x64.ActiveCfg = Release|x64
+		{9B9E4777-FBC4-4F86-B193-36FA07BA3263}.Release|x64.Build.0 = Release|x64
+		{9B9E4777-FBC4-4F86-B193-36FA07BA3263}.Release|x86.ActiveCfg = Release|Win32
+		{9B9E4777-FBC4-4F86-B193-36FA07BA3263}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
