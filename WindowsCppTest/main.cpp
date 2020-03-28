@@ -2561,7 +2561,7 @@ int main()
 }
 #endif
 
-#if 1
+#if 0
 
 #include "stdio.h"
 
@@ -2571,6 +2571,725 @@ int main()
 
     printf("%d\n", sizeof(short*));
 
+    return 0;
+}
+
+#endif
+
+#if 0
+#include <iostream>
+using namespace std;
+
+class A
+{
+public:
+    A() {}
+    ~A() {}
+
+    void fun1() 
+    {
+        fun2();
+        fun3();
+    };
+
+    virtual void fun2() 
+    {
+        cout << "fun2() at father class A" << endl;
+    };
+
+    void fun3()
+    {
+        cout << "fun3() at father class A" << endl;
+    }
+
+private:
+};
+
+class B : public A
+{
+public:
+    B() {}
+    ~B() {}
+
+    //覆盖
+    virtual void fun2()
+    {
+        cout << "fun2() at son class B" << endl;
+    }
+
+    //隐藏
+    void fun3()
+    {
+        cout << "fun3() at son class B" << endl;
+    }
+
+    //重载
+    void fun3(int a)
+    {
+        cout << "fun3(int a) at son class B" << endl;
+    }
+
+    void fun4()
+    {
+        fun3();
+        fun3(5);
+    }
+
+};
+
+int main()
+{
+    B b;
+    b.fun1();
+    b.fun4();
+
+    return 0;
+}
+
+#endif
+
+#if 0
+
+#include <set>
+
+using namespace std;
+
+int main()
+{
+    std::set<int*> m_b2buaCallSet;
+    std::set<int*> mySet;
+
+    int * p1 = new int(1);
+    int * p2 = new int(2);
+
+    m_b2buaCallSet.insert(p1);
+    m_b2buaCallSet.insert(p2);
+    return 0;
+}
+
+#endif
+
+#if 0
+#include <stdio.h>
+#include <malloc.h>
+#include <assert.h>
+#include <stdbool.h>
+
+#define ElemType int
+#define P 13
+
+typedef struct HashNode {
+    ElemType data;
+    struct HashNode* link;
+}HashNode;
+
+typedef HashNode* HashTable[P];
+
+void init_hash(HashTable ht) {
+    for (int i = 0; i < P; ++i) {
+        ht[i] = NULL;
+    }
+}
+
+int hash(ElemType key) {
+    return key % P;
+}
+void insert_hash_table(HashTable ht, ElemType x) {
+    int index = hash(x);
+    HashNode* s = (HashNode*)malloc(sizeof(HashNode));
+    assert(s != NULL);
+    s->data = x;
+
+    //头插
+    s->link = ht[index];
+    ht[index] = s;
+}
+
+void show_hash_table(HashTable ht) {
+    for (int i = 0; i < P; ++i) {
+        printf("%d: ", i);
+        HashNode* p = ht[i];
+        while (NULL != p) {
+            printf("%d->", p->data);
+            p = p->link;
+        }
+        printf("Nul.\n");
+    }
+}
+HashNode* search_hash_table(HashTable ht, ElemType x) {
+    int index = hash(x);
+    HashNode* p = ht[index];
+    while (NULL != p && p->data != x) {
+        p = p->link;
+    }
+    return p;
+}
+bool remove_hash_node(HashTable ht, ElemType x) {
+    HashNode* p = search_hash_table(ht, x);
+    if (NULL == p)return false;
+
+    int index = hash(x);
+    HashNode* q = ht[index];
+    if (p == q) {
+        ht[index] = p->link;
+        free(p);
+        return true;
+    }
+    while (q->link != p) {
+        q = q->link;
+    }
+    q->link = p->link;
+    free(p);
+    return true;
+}
+int main() {
+
+    HashTable ht;
+    init_hash(ht);
+
+    ElemType ar[] = { 19,14,23,1,68,20,84,27,55,11,10,79 };
+    int n = sizeof(ar) / sizeof(ElemType);
+
+    for (int i = 0; i < n; ++i) {
+        insert_hash_table(ht, ar[i]);
+    }
+
+    show_hash_table(ht);
+
+    ElemType key = 68;
+    HashNode* p = search_hash_table(ht, key);
+    if (NULL != p) {
+        printf("%d\n", p->data);
+    }
+
+    remove_hash_node(ht, key);
+    show_hash_table(ht);
+
+    return 0;
+
+}
+#endif
+
+#if 0
+#include<map>  
+#include<vector>
+#include<string>  
+#include<iostream> 
+#include <algorithm>
+
+using namespace std;
+
+typedef pair<string, int> PAIR;
+
+ostream& operator<<(ostream& out, const PAIR& p) {
+    return out << p.first << "\t" << p.second;
+}
+
+template <class T>
+struct greater : binary_function<T, T, bool>
+{
+    bool operator()
+        (const T& x, const T& y) const
+    {
+        return x>y;
+    }
+};
+
+bool compair_by_value(const PAIR& lhs, const PAIR& rhs)
+{
+    return lhs.second < rhs.second;
+};
+
+int main() {
+    //map<string, int> name_score_map;
+    map<string, int, greater<string>> name_score_map;
+    name_score_map["Zhangsan"] = 90;
+    name_score_map["Lisi"] = 79;
+    name_score_map.insert(make_pair("Wangwu", 99));
+
+    vector<PAIR> name_score_vec(name_score_map.begin(), name_score_map.end());
+    sort(name_score_vec.begin(), name_score_vec.end(), compair_by_value);
+
+    for (map<string, int>::iterator iter = name_score_map.begin(); iter != name_score_map.end(); ++iter) 
+    {
+        cout << *iter << endl;
+    }
+
+    //for(int i = 0; i != name_score_vec.size(); ++i)
+    //{
+    //    cout << name_score_vec[i] << endl;
+    //}
+
+    return 0;
+}
+
+
+#endif
+
+#if 0
+#include <list>
+#include <iostream>
+
+using namespace std;
+
+void printListData(list<int>& _list)
+{
+    list<int>::iterator it = _list.begin();
+
+    while (it != _list.end())
+    {
+        cout << *it << endl;
+        it++;
+    }
+}
+
+void eraseValueFromList(list<int>& _list, int value)
+{
+    list<int>::iterator it = _list.begin();
+    while (it != _list.end())
+    {
+        if (value == (*it))
+        {
+            _list.erase(it);
+            break;
+        }
+
+        it++;
+    }
+}
+
+int main()
+{
+    list<int> list_int;
+
+    list_int.push_back(1);
+    list_int.push_back(2);
+    list_int.push_back(3);
+    list_int.push_back(4);
+    list_int.push_back(5);
+
+    printListData(list_int);
+
+    list<int>::iterator it = list_int.begin();
+
+    //list_int.remove(4);
+    eraseValueFromList(list_int, 4);
+    eraseValueFromList(list_int, 3);
+    eraseValueFromList(list_int, 3);
+
+    printf("after delete data\n");
+    printListData(list_int);
+
+
+    return 0;
+}
+#endif
+
+#if 0
+#include "DniuHashTable.h"
+#include "DniuB2buaCall.h"
+
+
+int main()
+{
+    CHashTable<std::string, CDniuB2buaCall*> table;
+
+    CDniuB2buaCall call1("call1");
+    CDniuB2buaCall call2("call2");
+    CDniuB2buaCall call3("call3");
+    CDniuB2buaCall call4("call4");
+
+    CHashTable<std::string, CDniuB2buaCall*>::HashNode node1;
+    //CHashTable<std::string, CDniuB2buaCall*>::HashNode node2;
+    CHashTable<std::string, CDniuB2buaCall*>::HashNode node3;
+    CHashTable<std::string, CDniuB2buaCall*>::HashNode node4;
+
+    node1.m_key = "001";
+    node1.m_value = &call1;
+
+    //node2.m_key = "002";
+    //node2.m_value = &call2;
+    CHashTable<std::string, CDniuB2buaCall*>::HashNode node2("002", &call2);
+
+    node3.m_key = "002";
+    node3.m_value = &call3;
+
+    node4.m_key = "002";
+    node4.m_value = &call4;
+
+    table.insertNode(node1);
+    table.insertNode(node2);
+    table.insertNode(node3);
+    table.insertNode(node4);
+
+    table.printData();
+
+    table.removeNode(node4);
+    table.removeNode(node4);
+    table.removeNode(node4);
+    table.removeNode(node3);
+    table.removeNode(node2);
+
+    std::cout << "after remove node:" << std::endl;
+
+    table.printData();
+
+    return 0;
+}
+
+#endif
+
+#if 0
+#include <map>
+#include <iostream>
+#include <string>
+using namespace std;
+
+class CDniuCallManager
+{
+public:
+    void addb2buacall()
+    {
+
+    }
+
+private:
+    multimap<string, string> m_CallMultimap;
+};
+
+int main()
+{
+    multimap<string, string> mlty_map;
+    mlty_map.insert(pair<string, string>("001", "call1"));
+    mlty_map.insert(pair<string, string>("001", "call2"));
+    mlty_map.insert(pair<string, string>("001", "call3"));
+
+    mlty_map.insert(pair<string, string>("002", "call1"));
+    mlty_map.insert(pair<string, string>("002", "call2"));
+    mlty_map.insert(pair<string, string>("002", "call2"));
+    mlty_map.insert(pair<string, string>("002", "call2"));
+    mlty_map.insert(pair<string, string>("002", "call3"));
+
+    multimap<string, string>::iterator it_begin = mlty_map.lower_bound("005");
+    multimap<string, string>::iterator it_end = mlty_map.upper_bound("005");
+
+    if (it_begin == it_end)
+    {
+        it_begin++;
+        bool b1 = true;
+    }
+
+    //for (multimap<string, string>::iterator iter = mlty_map.begin(); 
+    //    iter != mlty_map.end(); iter = mlty_map.upper_bound(iter->first))
+    //{
+    //    std::cout << iter->first << std::endl;
+    //    multimap<string, string>::iterator it_begin = mlty_map.lower_bound(iter->first);
+    //    multimap<string, string>::iterator it_end = mlty_map.upper_bound(iter->first);
+    //    //std::pair<multimap<string, string>::iterator, multimap<string, string>::iterator> res = mlty_map.equal_range(iter->first);
+    //    for (; it_begin != it_end; ++it_begin)
+    //    {
+    //        std::cout << "******" << it_begin->second << std::endl;
+    //    }
+    //}
+
+    /*multimap<string, string>::iterator it1 = mlty_map.find("001");*/
+    //cout << "first:" << it1->first << "; second:" << it1->second << endl;
+
+    //int count = mlty_map.count("001");
+    //for (int i = 0; i < count; i++)
+    //{
+    //    cout << "first:" << it1->first << "; second:" << it1->second << endl;
+    //    it1++;
+    //}
+
+
+    //mlty_map.find(pair<string, string>("002", "call1"));
+
+    //mlty_map.erase("001");
+
+    //multimap<string, string>::iterator it_begin = mlty_map.lower_bound("001");
+    //multimap<string, string>::iterator it_end = mlty_map.upper_bound("001");
+
+    //while (it_begin != it_end)
+    //{
+    //    if ("call3" == it_begin->second)
+    //    {
+    //        it_begin = mlty_map.erase(it_begin);
+    //        continue;
+    //    }
+    //    cout << "first:" << it_begin->first << "; second:" << it_begin->second << endl;
+    //    it_begin++;
+    //}
+
+
+    //cout << "001, count():" << mlty_map.count("001") <<endl;
+
+    //cout << "**************************" << endl;
+
+    //for (multimap<string, string>::iterator it = mlty_map.begin(); it != mlty_map.end(); it++) 
+    //{
+    //    cout << "first:" << it->first << "; second:" << it->second << endl;
+    //}
+
+    return 0;
+}
+
+#endif
+
+
+#if 0
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int a = 2;
+    switch (a)
+    {
+    case 1:
+    case 2:
+        cout << "2" << endl;
+        cout << "2.1" << endl;
+    default:
+        cout << "default" << endl;
+    }
+}
+#endif
+
+#if 0
+/**
+*   智能指针
+*/
+// auto_ptr_release.cpp
+// compile with: /EHsc
+#include <memory>
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Int
+{
+public:
+    Int(int i)
+    {
+        x = i;
+        cout << "Constructing " << (void*)this << " Value: " << x << endl;
+    };
+    ~Int() {
+        cout << "Destructing " << (void*)this << " Value: " << x << endl;
+    };
+
+    int x;
+
+};
+
+int main()
+{
+    auto_ptr<Int> pi(new Int(5));
+    //pi.reset(new Int(6));
+    //Int* pi2 = pi.get();
+    //Int* pi3 = pi.get();
+
+    //Int* pi2 = pi.release();
+    //Int* pi3 = pi.release();
+
+    //Int* pi4 = pi.get();
+
+    //auto_ptr<Int> pi2 = pi;
+    auto_ptr<Int> pi2(pi);
+
+    //*(pi.get()) = 100;
+
+    cout << pi->x << endl;
+    cout << pi2->x << endl;
+
+    //Int* pi3 = pi.release();
+    //if (pi2 == pi3)
+    //    cout << "pi2 == pi3" << endl;
+    //delete pi3;
+    return 0;
+}
+
+#endif
+
+#if 0
+
+#include <memory>
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int myAtoI(char* p)
+{
+    if (NULL == p)
+    {
+        return -1;
+    }
+
+    char* tmp = p;
+    int value = 0;
+    for (int i = 0; '\0' != tmp[i]; i++)
+    {
+        if (tmp[i] >= '0' && tmp[i] <= '9')
+        {
+            value = value * 10 + (tmp[i] - '0');
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    return value;
+}
+
+int FindNextChar(char* src, char dest)
+{
+    if (NULL == src)
+    {
+        return -1;
+    }
+
+    char* tmp = src;
+
+    for (int i = 0; tmp[i] != '\0'; i++)
+    {
+        if (dest == tmp[i])
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+typedef struct
+{
+    int left;
+    int top;
+    int right;
+    int bottom;
+
+}Rect_t;
+
+int CovertToRect(char* p, Rect_t* pRect)
+{
+
+    if (NULL == p || NULL == pRect)
+    {
+        return -1;
+    }
+
+    int ileft = 0;
+    int itop = 0;
+    int iright = 0;
+    int ibottom = 0;
+
+    char pleft[20] = { 0 };
+    char ptop[20] = { 0 };
+    char pright[20] = { 0 };
+    char pbottom[20] = { 0 };
+
+    int index = -1;
+    char* tmp = p;
+
+    index = FindNextChar(tmp, ',');
+    for (int j = 0; j < index; j++)
+    {
+        pleft[j] = tmp[j];
+    }
+    tmp = tmp + index+1;
+
+    index = FindNextChar(tmp, ',');
+    for (int j = 0; j < index; j++)
+    {
+        ptop[j] = tmp[j];
+    }
+    tmp = tmp + index+1;
+
+    index = FindNextChar(tmp, ',');
+    for (int j = 0; j < index; j++)
+    {
+        pright[j] = tmp[j];
+    }
+    tmp = tmp + index+1;
+
+    for (int j = 0; tmp[j] != '\0'; j++)
+    {
+        pbottom[j] = tmp[j];
+    }
+
+    ileft = myAtoI(pleft);
+    itop = myAtoI(ptop);
+    iright = myAtoI(pright);
+    ibottom = myAtoI(pbottom);
+
+    pRect->left = ileft;
+    pRect->top = itop;
+    pRect->right = iright;
+    pRect->bottom = ibottom;
+
+    return 0;
+}
+
+int main()
+{
+    char buf[] = "hello";
+
+    //int a = sizeof(buf);
+    //int b = strlen(buf);
+
+    char* argv[6] = {0};    //指针数组，数组可以保存6个元素，每个元素都是一个 char* 类型的变量； 
+    char (*pa)[6] = NULL;   //数组指针，其指向一个长度为6的一维数组；
+
+    //指针数组比较常见，比如main函数的第二个参数就是一个指针数组；
+    //下面我们举个例子如何给数组指针赋值：
+
+    char buf[] = "hello";
+    pa = &buf;
+
+    pa[1];
+
+    printf("%s\n", pa[0]);
+
+    //Rect_t* pRect = new Rect_t;
+    //CovertToRect("1,23,100,200", pRect);
+
+
+
+    //int b = FindNextChar("hello world!", 'w');
+
+    //int a = myAtoI("12800");
+
+    return 0;
+}
+#endif
+
+#if 1
+
+#include<queue>
+#include <functional>
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    priority_queue<int, vector<int>, greater<int>> myQueue;
+    myQueue.push(1);
+    myQueue.push(10);
+    myQueue.push(5);
+    myQueue.push(5);
+    myQueue.push(8);
+    myQueue.push(2);
+
+    while (!myQueue.empty())
+    {
+        int n = myQueue.top();
+        myQueue.pop();
+        cout << n << endl;
+    }
     return 0;
 }
 

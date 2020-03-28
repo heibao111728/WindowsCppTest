@@ -29,5 +29,11 @@
     <ClInclude Include="command_line_parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DniuHashTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DniuB2buaCall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
